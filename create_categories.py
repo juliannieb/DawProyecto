@@ -10,10 +10,16 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
  
 # Insert a Person in the person table
-categories = ['Sports', 'Entertainment', 'Tech', 'Business', 'Lifestyle', 'Shopping', 'Education']
+categories = ['Sports', 'Art', 'Tech', 'Business', 'Lifestyle', 'Education']
+
+
+
 
 for category in categories:
 	new_category = Category(name=category)
 	session.add(new_category)
 	session.commit()
  
+ca = session.query(Category).all()
+for c in ca:
+	print c

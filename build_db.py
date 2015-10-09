@@ -4,23 +4,31 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
  
 Base = declarative_base()
  
 class WebPage(Base):
-    __tablename__ = 'web pages'
+    __tablename__ = 'web_pages'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    title = Column(String(250), nullable=False)
     url = Column(String(250), nullable=False)
     text = Column(Text())
+    num_divs = Column(Integer, nullable=False)
+    num_titles = Column(Integer, nullable=False)
+    num_refs = Column(Integer, nullable=True)
+    cat_id = Column(Integer, ForeignKey('categories.id'))
+    category = relationship("Category", backref=backref('web_pages', order_by=id))
  
 class Category(Base):
     __tablename__ = 'categories'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=True, unique=True)
- 
+    def __str__(self):
+        return self.name
+
+
 # Create an engine that stores data in the local directory's
 # sqlalchemy_example.db file.
 engine = create_engine('sqlite:///features.db')
