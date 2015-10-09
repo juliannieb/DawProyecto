@@ -50,8 +50,16 @@ def create_csv(name_source, name_dest):
 def create_page(req, row, category):
 	link = row[2]
 	html = req.read()
-	readable_article = Document(html).summary()
-	txt = striphtml(readable_article)
+	readable_article = None
+	try:
+		readable_article = Document(html).summary()
+	except Exception:
+		pass	
+	
+	if readable_article:
+		txt = striphtml(readable_article)
+	else:
+		txt = ""
 
 	num_divs = num_apperances_of_tag('div', html)
 	num_refs = num_apperances_of_tag('a', html)
@@ -75,13 +83,16 @@ def crawl(name_source):
 				req = urlopen(row[2])
 			except URLError as e:
 				print e.reason
+			except HTTPError as e:
+				print e.reason
+			except Exception:
+				pass
 			if req:
 				web_page = create_page(req, row, cat)
 				session.add(web_page)
 				session.commit()
 
-			if cont%50 == 0:
-				print cont
+			print cont
 			cont += 1
 	
 
