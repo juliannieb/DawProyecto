@@ -14,7 +14,7 @@ class WebPage(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
     url = Column(String(250), nullable=False)
-    text = Column(Text())
+    text = Column(UnicodeText(64))
     num_divs = Column(Integer, nullable=False)
     num_titles = Column(Integer, nullable=False)
     num_refs = Column(Integer, nullable=True)
