@@ -1,4 +1,4 @@
-#!/Users/alejandrocassis/Documents/daw_proyecto/venv/bin/python
+#!/Users/alejandrocassis/Documents/daw_proyecto/DawProyecto/venv/bin/python
 # EASY-INSTALL-ENTRY-SCRIPT: 'chardet==2.3.0','console_scripts','chardetect'
 __requires__ = 'chardet==2.3.0'
 import sys
