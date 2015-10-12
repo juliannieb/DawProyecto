@@ -14,7 +14,7 @@ class WebPage(Base):
     __tablename__ = 'web_pages'
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
-    url = Column(String(250), nullable=False)
+    url = Column(String(250), nullable=False, unique=True)
     text = Column(UnicodeText(convert_unicode=True))
     num_divs = Column(Integer, nullable=False)
     num_titles = Column(Integer, nullable=False)

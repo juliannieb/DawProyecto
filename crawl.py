@@ -50,13 +50,17 @@ def create_csv(name_source, name_dest):
 
 def create_page(req, row, category, encoding):
     link = row[2]
-    html = req.read()
     readable_article = None
+    html = None
     try:
+        html = req.read()
         readable_article = Document(html).summary()
     except Exception as e:
         print repr(e)    
     
+    if not html:
+        return None
+
     if readable_article:
         txt = striphtml(readable_article)
     else:
@@ -79,9 +83,19 @@ def crawl(name_source):
     with open(name_source) as csvin:
         csvin = csv.reader(csvin, delimiter='\t')
         for row in csvin:
+            print cont
+            cont += 1
             cat = session.query(Category).name = row[0]
+            try:
+                query = session.query(WebPage).filter(WebPage.title.in_([row[1]]))
+                if query.all():
+                    print "Ya existe"
+                    continue
+            except Exception as e:
+                print repr(e)
+                continue
             try: 
-                req = urlopen(row[2])
+                req = urlopen(row[2], timeout=1)
             except URLError as e:
                 if hasattr(e, 'reason'):
                     print 'We failed to reach a server.'
@@ -94,9 +108,12 @@ def crawl(name_source):
             except Exception:
                 pass
             if req:
-                encoding=req.headers['content-type'].split('charset=')[-1]
-                if encoding == "text/html":
-                    encoding = "ascii"
+                if 'content-type' in req.headers:
+                    encoding = req.headers['content-type'].split('charset=')[-1]
+                    if encoding == "text/html":
+                        encoding = "ascii"
+                else:
+                    encoding = 'utf8'
                 web_page = create_page(req, row, cat, encoding)
                 if web_page:
                     try:
@@ -106,10 +123,6 @@ def crawl(name_source):
                         session.rollback()
                         print repr(e)
                         pass
-
-            print cont
-            cont += 1
-    
 
 # crawl('new.csv')
 crawl('new.csv')
