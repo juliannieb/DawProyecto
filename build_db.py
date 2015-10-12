@@ -1,3 +1,4 @@
+# -*- coding: utf_8 -*-
 import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, UnicodeText
@@ -14,7 +15,7 @@ class WebPage(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
     url = Column(String(250), nullable=False)
-    text = Column(UnicodeText(64))
+    text = Column(UnicodeText(convert_unicode=True))
     num_divs = Column(Integer, nullable=False)
     num_titles = Column(Integer, nullable=False)
     num_refs = Column(Integer, nullable=True)
@@ -31,7 +32,7 @@ class Category(Base):
 
 # Create an engine that stores data in the local directory's
 # sqlalchemy_example.db file.
-engine = create_engine('sqlite:///features.db')
+engine = create_engine('sqlite:///features.db', encoding='utf8', convert_unicode=True)
  
 # Create all tables in the engine. This is equivalent to "Create Table"
 # statements in raw SQL.
