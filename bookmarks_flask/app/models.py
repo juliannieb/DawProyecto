@@ -12,6 +12,17 @@ class User(db.Model):
 	def __repr__(self):
 		return '<User: %r>' % self.username
 
+	@property
+	def password(self):
+		raise AttributeError('password is not a readable attribute')
+
+	@password.setter
+	def password(self, password):
+		self.password_hash = generate_password_hash(password)
+
+	def verify_password(self, password):
+		return check_password_hash(self.password_hash, password)
+
 
 class Bookmark(db.Model):
 	__tablename__='bookmarks'
@@ -33,16 +44,5 @@ class Category(db.Model):
 
 	def __repr__(self):
 		return '<Category: %r>' % self.name
-
-@property
-def password(self):
-	raise AttributeError('password is not a readable attribute')
-
-@password.setter
-def password(self, password):
-	self.password_hash = generate_password_hash(password)
-
-def verify_password(self, password):
-	return check_password_hash(self.password_hash, password)
 
 

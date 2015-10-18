@@ -1,10 +1,12 @@
 from flask.ext.wtf import Form
 from flask_wtf.file import FileField
-from wtforms import TextField, HiddenField, ValidationError, RadioField, BooleanField, \
-        SubmitField, IntegerField, FormField, StringField, PasswordField, validators
-from wtforms.validators import Required
+from wtforms import TextField, HiddenField, RadioField, BooleanField, \
+        SubmitField, IntegerField, FormField, StringField, PasswordField
+from wtforms import validators, ValidationError
+from wtforms.validators import Required, EqualTo
 from wtforms.widgets import Input
 from ..models import User, Bookmark
+
 
 class TelephoneForm(Form):
     country_code = IntegerField('Country Code', [validators.required()])
@@ -41,7 +43,7 @@ class ExampleForm(Form):
 
 class RegistrationForm(Form):
     username = TextField('Name', validators=[Required()])
-    password = PasswordField('Password', validators=[Required()])
+    password = PasswordField('Password', validators=[Required(), EqualTo('confirm_password', message='Passwords must match.')])
     confirm_password = PasswordField('Confirm password', validators=[Required()])
     submit = SubmitField('Register')
 

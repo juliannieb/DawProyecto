@@ -13,14 +13,16 @@ def index():
 @main.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegistrationForm()
-	flash("dasdasdas")
-	print(form.errors)
-	if form.validate():
-		print("smthn")
 	if form.validate_on_submit():
 		user = User(username=form.username.data,
 					password=form.password.data)
+		print(user)
 		#db.session.add(user)
 		#db.session.commit()
-		return redirect(url_for('register'))
+		return redirect(url_for('main.index'))
 	return render_template('register.html', form=form)
+
+@main.route('/test', methods=['GET', 'POST'])
+def test():
+	form = ExampleForm()
+	return render_template('test.html', form = form)
