@@ -1,8 +1,10 @@
-from flask_wtf import Form
+from flask.ext.wtf import Form
 from flask_wtf.file import FileField
-from wtforms import TextField, HiddenField, ValidationError, RadioField,\
-    BooleanField, SubmitField, IntegerField, FormField, validators
+from wtforms import TextField, HiddenField, ValidationError, RadioField, BooleanField, \
+        SubmitField, IntegerField, FormField, StringField, PasswordField, validators
 from wtforms.validators import Required
+from wtforms.widgets import Input
+from ..models import User, Bookmark
 
 class TelephoneForm(Form):
     country_code = IntegerField('Country Code', [validators.required()])
@@ -36,3 +38,14 @@ class ExampleForm(Form):
 
     def validate_hidden_field(form, field):
         raise ValidationError('Always wrong')
+
+class RegistrationForm(Form):
+    username = TextField('Name', validators=[Required()])
+    password = PasswordField('Password', validators=[Required()])
+    confirm_password = PasswordField('Confirm password', validators=[Required()])
+    submit = SubmitField('Register')
+
+    def validate_username(self, field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError('Username already in use.')
+

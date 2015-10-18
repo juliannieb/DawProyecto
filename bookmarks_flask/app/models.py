@@ -13,7 +13,6 @@ class User(db.Model):
 		return '<User: %r>' % self.username
 
 
-
 class Bookmark(db.Model):
 	__tablename__='bookmarks'
 	id = db.Column(db.Integer, primary_key=True)
