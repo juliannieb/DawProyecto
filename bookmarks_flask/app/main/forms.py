@@ -40,9 +40,3 @@ class ExampleForm(Form):
 
     def validate_hidden_field(form, field):
         raise ValidationError('Always wrong')
-
-class RegistrationForm(Form):
-    username = TextField('Name', validators=[Required()])
-    password = PasswordField('Password', validators=[Required(), EqualTo('confirm_password', message='Passwords must match.')])
-    confirm_password = PasswordField('Confirm password', validators=[Required()])
-    submit = SubmitField('Register')
