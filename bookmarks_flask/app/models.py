@@ -27,7 +27,7 @@ class User(db.Model):
 class Bookmark(db.Model):
 	__tablename__='bookmarks'
 	id = db.Column(db.Integer, primary_key=True)
-	link = db.Column(db.String(2000))
+	link = db.Column(db.String(2200))
 	title = db.Column(db.String(64))
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	categories = db.relationship('Category', backref='bookmark', lazy='dynamic')

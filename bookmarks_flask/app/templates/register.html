@@ -12,15 +12,24 @@
             	<div class="card-content black-text">
             		<span class="card-title">Registration</span>
               		<form action="" method='POST'>
-						{{ form.csrf_token }}
-					  	{{ form.username.label }} <br>
-					  	{{ form.username(class_='required', placeholder='yourname@email.com') }}
-						{{ form.password.label }} <br>
-					  	{{ form.password(class_='required') }}
-					  	{{ form.confirm_password.label }} <br>
-					  	{{ form.confirm_password(class_='required') }}
-						{{ form.submit(class_='btn btn-default') }}
-					</form>
+					  	      {{ form.username.label }} <br>
+      					  	{{ form.username(class_='validate', placeholder='yourname@email.com') }}
+                    {% for error in form.username.errors %}
+                      {{ error }} <br>
+                    {% endfor %}
+      						  {{ form.password.label }} <br>
+      					  	{{ form.password(class_='required') }}
+                    {% for error in form.password.errors %}
+                      {{ error }} <br>
+                    {% endfor %}
+      					  	{{ form.confirm_password.label }} <br>
+      					  	{{ form.confirm_password(class_='required') }}
+                    {% for error in form.confirm_password.errors %}
+                      {{ error }} <br>
+                    {% endfor %}
+      						  {{ form.submit(class_='btn btn-default') }}
+                    {{ form.csrf_token }}
+                  </form>
             	</div>
           	</div>
         </div>

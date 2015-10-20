@@ -1,7 +1,7 @@
 from flask import render_template, redirect, request, url_for, flash
-from forms import ExampleForm, RegistrationForm
 from . import main
 from .. import db
+from .forms import ExampleForm, RegistrationForm
 from ..models import User
 
 @main.route('/', methods=['GET', 'POST'])
@@ -25,4 +25,4 @@ def register():
 @main.route('/test', methods=['GET', 'POST'])
 def test():
 	form = ExampleForm()
-	return render_template('test.html', form = form)
+	return render_template('test.html', form=form)
