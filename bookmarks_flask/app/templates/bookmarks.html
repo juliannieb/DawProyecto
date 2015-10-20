@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h4>Deportes</h4>
+                    <div class="divider"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card hoverable">
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename = 'img/sportTest1.jpg') }}">
+                            <span class="card-title truncate">Título Bookmark 1 hola como estas que onda Título Bookmark 1 hola como estas que onda</span>
+                        </div>
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Ir a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -10,7 +10,7 @@
 
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/materializecss.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/general.css') }}">
-	
+
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/bookmarks.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/libros.css') }}">
 {% endblock %}
@@ -27,12 +27,12 @@
 					<li class="bold"><a class="collapsible-header  waves-effect waves-teal">Bookmarks</a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a href="bookmarks.html">Deportes</a></li>
-								<li><a href="bookmarks.html">Educación</a></li>
-								<li><a href="bookmarks.html">Política</a></li>
-								<li><a href="bookmarks.html">Ciencia y tecnología</a></li>
-								<li><a href="bookmarks.html">Sociedad y cultura</a></li>
-								<li><a href="bookmarks.html">Arte</a></li>
+								<li><a href="{{ url_for('main.bookmarks') }}">Deportes</a></li>
+								<li><a href="{{ url_for('main.bookmarks') }}">Educación</a></li>
+								<li><a href="{{ url_for('main.bookmarks') }}">Política</a></li>
+								<li><a href="{{ url_for('main.bookmarks') }}">Ciencia y tecnología</a></li>
+								<li><a href="{{ url_for('main.bookmarks') }}">Sociedad y cultura</a></li>
+								<li><a href="{{ url_for('main.bookmarks') }}">Arte</a></li>
 							</ul>
 						</div>
 					</li>

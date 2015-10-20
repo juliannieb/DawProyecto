@@ -12,3 +12,7 @@ def index():
 @main.route('/profile')
 def profile():
 	return render_template('perfil.html')
+
+@main.route('/bookmarks')
+def bookmarks():
+	return render_template('bookmarks.html')
