@@ -16,3 +16,7 @@ def profile():
 @main.route('/bookmarks')
 def bookmarks():
 	return render_template('bookmarks.html')
+
+@main.route('/books')
+def books():
+	return render_template('books.html')

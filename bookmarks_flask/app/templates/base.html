@@ -11,8 +11,6 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/materializecss.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/general.css') }}">
 
-	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/bookmarks.css') }}">
-	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/libros.css') }}">
 {% endblock %}
 
 {% block navbar %}
@@ -38,7 +36,7 @@
 					</li>
 				</ul>
 		  </li>
-		  <li class="bold"><a href="libros.html" class="waves-effect waves-teal">Libros</a></li>
+		  <li class="bold"><a href="{{ url_for('main.books') }}" class="waves-effect waves-teal">Libros</a></li>
 		</ul>
 	</header>
 {% endblock %}
