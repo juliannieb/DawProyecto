@@ -30,7 +30,7 @@ class Bookmark(db.Model):
 	link = db.Column(db.String(2200))
 	title = db.Column(db.String(64))
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-	categories = db.relationship('Category', backref='bookmark', lazy='dynamic')
+	category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
 	def __repr__(self):
 		return '<Bookmark: %r>' % self.title
@@ -40,9 +40,7 @@ class Category(db.Model):
 	__tablename__='categories'
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(64))
-	bookmark_id = db.Column(db.Integer, db.ForeignKey('bookmarks.id'))
+	bookmarks = db.relationship('Bookmark', backref='category', lazy='dynamic')
 
 	def __repr__(self):
 		return '<Category: %r>' % self.name
-
-
