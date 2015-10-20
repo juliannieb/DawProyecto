@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bookmarks</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/materializecss.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bookmarks.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/libros.css') }}">
+
+    {% block head_content %}
+    {% endblock %}
+
+</head>
+<body>
+    <header>
+        <a href="#" data-activates="slide-out" class="button-collapse top-nav hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
+        <ul id="slide-out" class="side-nav fixed">
+            <li class="logo"><a id="logo-container" href="index.html" class="brand-logo">
+                <object id="front-page-logo" type="image/png" data="img/bookmark.png">Your browser does not support SVG</object></a></li>
+            <li class="bold"><a href="perfil.html" class="waves-effect waves-teal">Perfil</a></li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Bookmarks</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="bookmarks.html">Deportes</a></li>
+                                <li><a href="bookmarks.html">Educación</a></li>
+                                <li><a href="bookmarks.html">Política</a></li>
+                                <li><a href="bookmarks.html">Ciencia y tecnología</a></li>
+                                <li><a href="bookmarks.html">Sociedad y cultura</a></li>
+                                <li><a href="bookmarks.html">Arte</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+          </li>
+          <li class="bold"><a href="libros.html" class="waves-effect waves-teal">Libros</a></li>
+        </ul>
+    </header>
+
+  {% block content %}
+  {% endblock %}
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/general.js"></script>
+
+</body>
+</html>
