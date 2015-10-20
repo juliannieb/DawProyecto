@@ -9,4 +9,6 @@ def index():
 	form = ExampleForm()
 	return render_template('index.html', form=form)
 
-
+@main.route('/profile')
+def profile():
+	return render_template('perfil.html')
