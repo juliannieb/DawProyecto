@@ -1,19 +1,15 @@
-{% extends "material/base.html" %}
-{% import "material/utils.html" as util %}
-{% import "material/wtf.html" as wtf %}
-
-{% block title %}Hello, world!{% endblock %}
-
+{% extends "base.html" %}
 {% block content %}
-{{ container() }}
-        {{ row() }}
-                {{ col(['s12', 'm6']) }}
-                	{{ util.card('Hello world!', wtf.quick_form(form) )}}
-                {{ enddiv() }}
-                {{ col(['s12', 'm6'])}}
-                	{{ util.card('Isn\'t Flask great?', '<p>I really do enjoy it!</p>', [['https://github.com/HellerCommaA', 'My Github']])}}
-                	{{ util.card('Aren\t the aardvarks in the Alps wonderful?', '', [['#', 'Yep!'], ['#', 'Nah.']]) }}
-            	{{ enddiv() }}
-        {{ enddiv() }}
-{{ enddiv() }}
+    <main>
+        <section>
+            <div class="container">
+                <div class="row max-height valign-wrapper">
+                    <div class="col s6 offset-s3 centered-text valign">
+                        <img src="{{ url_for('static', filename = 'img/bookmark.png') }}" alt="Logo" class="imgPrincipal responsive-img" id="imgPrincipal">
+                        <h5 clas="flow-text">¡Organiza tus bookmarks!</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock %}
