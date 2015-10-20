@@ -14,4 +14,4 @@ def register():
 		#db.session.add(user)
 		#db.session.commit()
 		return redirect(url_for('main.index'))
-	return render_template('register.html', form=form)
+	return render_template('base.html', form=form)
