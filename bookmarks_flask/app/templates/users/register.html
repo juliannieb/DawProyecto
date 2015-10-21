@@ -10,35 +10,45 @@
         <div class="col s12 m12">
             <div class="card">
               <div class="card-content black-text">
-                <span class="card-title">Registration</span>
+                <span class="black-text card-title">Registration</span>
                   <form action="" method='POST'>
-                    {{ form.username.label }} <br>
-                    {{ form.username(class_='validate') }}
-                    {% for error in form.username.errors %}
-                      {{ error }} <br>
-                    {% endfor %}
-                    {{ form.first_name.label }} <br>
-                    {{ form.first_name(class_='validate') }}
-                    {% for error in form.first_name.errors %}
-                      {{ error }} <br>
-                    {% endfor %}
-                    {{ form.last_name.label }} <br>
-                    {{ form.last_name(class_='validate') }}
-                    {% for error in form.last_name.errors %}
-                      {{ error }} <br>
-                    {% endfor %}
-                    {{ form.password.label }} <br>
-                    {{ form.password(class_='required') }}
-                    {% for error in form.password.errors %}
-                      {{ error }} <br>
-                    {% endfor %}
-                    {{ form.confirm_password.label }} <br>
-                    {{ form.confirm_password(class_='required') }}
-                    {% for error in form.confirm_password.errors %}
-                      {{ error }} <br>
-                    {% endfor %}
-                    {{ form.submit(class_='btn btn-default') }}
-                    {{ form.csrf_token }}
+                    <div class="input-field col s12">
+                      {{ form.username(class_='validate') }}
+                      {{ form.username.label }} <br>
+                      {% for error in form.username.errors %}
+                        {{ error }} <br>
+                      {% endfor %}
+                    </div>
+                    <div class="input-field col s12">
+                      {{ form.first_name(class_='validate') }}
+                      {{ form.first_name.label }} <br>
+                      {% for error in form.first_name.errors %}
+                        {{ error }} <br>
+                      {% endfor %}
+                    </div>
+                    <div class="input-field col s12">
+                      {{ form.last_name(class_='validate') }}
+                      {{ form.last_name.label }} <br>
+                      {% for error in form.last_name.errors %}
+                        {{ error }} <br>
+                      {% endfor %}
+                    </div>
+                    <div class="input-field col s12">
+                      {{ form.password(class_='validate') }}
+                      {{ form.password.label }} <br>
+                      {% for error in form.password.errors %}
+                        {{ error }} <br>
+                      {% endfor %}
+                    </div>
+                    <div class="input-field col s12">
+                      {{ form.confirm_password(class_='validate') }}
+                      {{ form.confirm_password.label }} <br>
+                      {% for error in form.confirm_password.errors %}
+                        {{ error }} <br>
+                      {% endfor %} <br>
+                      {{ form.submit(class_='btn btn-default') }}
+                      {{ form.csrf_token }} <p><br></p>
+                    </div>
                   </form>
               </div>
             </div>
