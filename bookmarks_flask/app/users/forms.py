@@ -18,6 +18,6 @@ class RegistrationForm(Form):
 
 class LoginForm(Form):
 	username = TextField('Username', validators=[Required()])
-	password = TextField('Password', validators=[Required()])
+	password = PasswordField('Password', validators=[Required()])
 	remember_me = BooleanField('Remember me', description='Checkboxes can be tricky.')
 	submit = SubmitField('Login')
