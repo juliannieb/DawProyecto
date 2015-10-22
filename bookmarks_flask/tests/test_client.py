@@ -19,3 +19,27 @@ class FlaskClientTestCase(unittest.TestCase):
 	def test_registration_page(self):
 		response = self.client.get(url_for('users.register'))
 		self.assertTrue('Registration' in response.get_data(as_text=True))
+
+	def test_login_page(self):
+		response = self.client.get(url_for('users.login'))
+		data = response.get_data(as_text=True)
+		self.assertTrue('Login' in data)
+
+	def test_user_registration(self):
+		response = self.client.post(url_for('users.register'), data={
+				'username': 'user',
+				'first_name': 'User', 
+				'last_name': 'McUserson',
+				'password': 'user',
+				'confirm_password': 'user' 
+			}, follow_redirects=True)
+		self.assertTrue(response.status_code == 302)
+
+		response = self.client.post(url_for('users.login'), data={
+				'username': 'user',
+				'password': 'user'
+			})
+		data = response.get_data(as_text=True)
+		self.assertTrue('Organiza' in data)
+
+
