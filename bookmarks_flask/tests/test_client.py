@@ -18,4 +18,4 @@ class FlaskClientTestCase(unittest.TestCase):
 
 	def test_registration_page(self):
 		response = self.client.get(url_for('users.register'))
-		self.assertTrue('Registration' in responde.get_data(as_text=True))
+		self.assertTrue('Registration' in response.get_data(as_text=True))
