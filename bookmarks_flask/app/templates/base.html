@@ -23,8 +23,9 @@
 			<li class="bold"><a href="{{ url_for('main.profile') }}" class="waves-effect waves-teal">Profile</a></li>
 			<li class="no-padding">
 				<ul class="collapsible collapsible-accordion">
-					<li class="bold"><a class="collapsible-header  waves-effect waves-teal left-align" style="display: inline-block;">Bookmarks</a>
-						<a href="#" class="right-align" style="display: inline-block;">+</a>
+					<li class="bold">
+						<a class="collapsible-header  waves-effect waves-teal" style="display: inline-block; width:170px;">Bookmarks</a>
+						<a href="{{ url_for('main.add_bookmark') }}" class="right-align" style="display: inline-block; float:right;">+</a>
 						<div class="collapsible-body">
 							<ul>
 								<li><a href="{{ url_for('main.bookmarks') }}">Deportes</a></li>
