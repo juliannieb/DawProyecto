@@ -13,13 +13,16 @@ def index():
 		return redirect(url_for('users.login'))
 
 @main.route('/profile')
+@login_required
 def profile():
 	return render_template('profile.html')
 
 @main.route('/bookmarks')
+@login_required
 def bookmarks():
 	return render_template('bookmarks.html')
 
 @main.route('/books')
+@login_required
 def books():
 	return render_template('books.html')
