@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col s12" style="text-align:center;">
                     <img src="{{ url_for('static', filename = 'img/perfilDefault.png') }}" alt="Profile Picture" class="imgCircular" id="imgPerfil">
-                    <h5>Chicken Bacon</h5>
+                    <h5>{{ current_user.first_name }} {{ current_user.last_name }}</h5>
                 </div>
                 <div class="col s12">
                     <img src="{{ url_for('static', filename = 'img/settings.png') }}" alt="Settings" id="imgSettings">

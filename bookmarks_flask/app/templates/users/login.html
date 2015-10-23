@@ -21,20 +21,20 @@
                       {{ form.username(class_='validate') }}
                       {{ form.username.label }}
                        {% for error in form.username.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %}
                     </div>
                     <div class="input-field col s12">
                       {{ form.password(class_='required') }}
                       {{ form.password.label }} <br>
                       {% for error in form.password.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %}<br>
                     </div>
                     <p>
                         &nbsp&nbsp {{ form.remember_me}} {{ form.remember_me.label }}<br> <br>
                         {% for error in form.remember_me.errors %}
-                          {{ error }} <br>
+                          <p class="red-text">{{ error }}</p> <br>
                         {% endfor %}
                     </p>
                     <div class="input-field col s12">

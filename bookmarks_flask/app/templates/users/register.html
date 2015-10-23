@@ -2,6 +2,11 @@
 {% import "material/utils.html" as util %}
 {% import "material/wtf.html" as wtf %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/login.css') }}">
+{% endblock %}
+
 {% block title %}Registration{% endblock %}
 
 {% block content %}
@@ -16,35 +21,35 @@
                       {{ form.username(class_='validate') }}
                       {{ form.username.label }} <br>
                       {% for error in form.username.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %}
                     </div>
                     <div class="input-field col s12">
                       {{ form.first_name(class_='validate') }}
                       {{ form.first_name.label }} <br>
                       {% for error in form.first_name.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %}
                     </div>
                     <div class="input-field col s12">
                       {{ form.last_name(class_='validate') }}
                       {{ form.last_name.label }} <br>
                       {% for error in form.last_name.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %}
                     </div>
                     <div class="input-field col s12">
                       {{ form.password(class_='validate') }}
                       {{ form.password.label }} <br>
                       {% for error in form.password.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %}
                     </div>
                     <div class="input-field col s12">
                       {{ form.confirm_password(class_='validate') }}
                       {{ form.confirm_password.label }} <br>
                       {% for error in form.confirm_password.errors %}
-                        {{ error }} <br>
+                        <p class="red-text">{{ error }}</p> <br>
                       {% endfor %} <br>
                       {{ form.submit(class_='btn btn-default') }}
                       {{ form.csrf_token }} <p><br></p>
