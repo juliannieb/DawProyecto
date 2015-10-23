@@ -35,6 +35,7 @@ class Bookmark(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	link = db.Column(db.String(2200))
 	title = db.Column(db.String(64))
+	description = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
