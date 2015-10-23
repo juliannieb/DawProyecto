@@ -8,7 +8,7 @@ class User(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(64))
 	first_name = db.Column(db.String(64))
-	last_name = db.Column(db.String(64)) # Update form
+	last_name = db.Column(db.String(64))
 	password_hash = db.Column(db.String(128))
 	bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
 
