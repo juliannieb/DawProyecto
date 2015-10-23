@@ -29,7 +29,7 @@ def bookmarks():
 def books():
 	return render_template('books.html')
 
-@main.route('/add_bookmark')
+@main.route('/add_bookmark',  methods=['GET', 'POST'])
 @login_required
 def add_bookmark():
 	form = BookmarkForm()
