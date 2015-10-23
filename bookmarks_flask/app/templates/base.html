@@ -19,7 +19,7 @@
 		<ul id="slide-out" class="side-nav fixed">
 			<li class="logo"><a id="logo-container" href="{{ url_for('main.index') }}" class="brand-logo">
 				<object id="front-page-logo" type="image/png" data="{{ url_for('static', filename = 'img/bookmark.png') }}">Your browser does not support SVG</object></a></li>
-			<li class="bold"><a href="{{ url_for('main.profile') }}" class="waves-effect waves-teal">Perfil</a></li>
+			<li class="bold"><a href="{{ url_for('main.profile') }}" class="waves-effect waves-teal">Profile</a></li>
 			<li class="no-padding">
 				<ul class="collapsible collapsible-accordion">
 					<li class="bold"><a class="collapsible-header  waves-effect waves-teal">Bookmarks</a>
@@ -36,7 +36,8 @@
 					</li>
 				</ul>
 		  </li>
-		  <li class="bold"><a href="{{ url_for('main.books') }}" class="waves-effect waves-teal">Libros</a></li>
+		  <li class="bold"><a href="{{ url_for('main.books') }}" class="waves-effect waves-teal">Books</a></li>
+		  <li class="bold"><a href="{{ url_for('users.logout') }}" class="waves-effect waves-teal">Logout</a></li>
 		</ul>
 	</header>
 {% endblock %}

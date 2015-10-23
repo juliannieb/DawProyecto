@@ -1,5 +1,5 @@
 from flask import render_template, redirect, request, url_for, flash
-from flask.ext.login import login_user, logout_user
+from flask.ext.login import login_user, logout_user, current_user
 from . import users
 from .. import db
 from .forms import RegistrationForm, LoginForm
@@ -31,3 +31,8 @@ def login():
 		flash('Invalid username or password')
 		print("could not login")
 	return render_template('users/login.html', form=form)
+
+@users.route('/logout')
+def logout():
+	logout_user()
+	return redirect(url_for('users.login'))
