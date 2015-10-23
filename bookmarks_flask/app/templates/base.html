@@ -10,19 +10,21 @@
 
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/materializecss.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/general.css') }}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 {% endblock %}
 
 {% block navbar %}
 	<header>
-		<a href="#" data-activates="slide-out" class="button-collapse top-nav hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
+		<a href="#" data-activates="slide-out" class="button-collapse top-nav hide-on-large-only"><i class="material-icons black-text">reorder</i></a>
 		<ul id="slide-out" class="side-nav fixed">
 			<li class="logo"><a id="logo-container" href="{{ url_for('main.index') }}" class="brand-logo">
 				<object id="front-page-logo" type="image/png" data="{{ url_for('static', filename = 'img/bookmark.png') }}">Your browser does not support SVG</object></a></li>
 			<li class="bold"><a href="{{ url_for('main.profile') }}" class="waves-effect waves-teal">Profile</a></li>
 			<li class="no-padding">
 				<ul class="collapsible collapsible-accordion">
-					<li class="bold"><a class="collapsible-header  waves-effect waves-teal">Bookmarks</a>
+					<li class="bold"><a class="collapsible-header  waves-effect waves-teal left-align" style="display: inline-block;">Bookmarks</a>
+						<a href="#" class="right-align" style="display: inline-block;">+</a>
 						<div class="collapsible-body">
 							<ul>
 								<li><a href="{{ url_for('main.bookmarks') }}">Deportes</a></li>
@@ -48,5 +50,5 @@
 {% block scripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/general.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/general.js') }}"></script>
 {% endblock %}

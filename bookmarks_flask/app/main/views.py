@@ -2,7 +2,7 @@ from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_required, logout_user, current_user
 from . import main
 from .. import db
-from ..models import User
+from ..models import User, Bookmark, Category
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -19,7 +19,9 @@ def profile():
 @main.route('/bookmarks')
 @login_required
 def bookmarks():
-	return render_template('bookmarks.html')
+	bookmarks = Bookmark.query.filter_by(user_id=current_user.id).all()
+	print(bookmarks)
+	return render_template('bookmarks.html', bookmarks=bookmarks)
 
 @main.route('/books')
 @login_required
