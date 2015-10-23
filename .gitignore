@@ -58,3 +58,4 @@ target/
 
 *.db
 .DS_STORE
+data-dev.sqlite
