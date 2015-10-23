@@ -11,6 +11,14 @@
 
 {% block content %}
 {{ container() }}
+    {% for message in get_flashed_messages() %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title red-text">Error</span>
+                <p class="red-text"> {{ message }} </p>
+            </div>
+        </div>
+    {% endfor %}
     <div class="row">
         <div class="col s12 m12">
             <div class="card">

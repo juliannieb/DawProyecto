@@ -16,7 +16,7 @@ def register():
 					last_name=form.last_name.data)
 		db.session.add(user)
 		db.session.commit()
-		#login_user(user)
+		login_user(user)
 		return redirect(url_for('main.index'))
 	return render_template('users/register.html', form=form)
 
