@@ -86,6 +86,7 @@ def crawl(name_source):
             print cont
             cont += 1
             cat = session.query(Category).name = row[0]
+            print cat
             try:
                 query = session.query(WebPage).filter(WebPage.title.in_([row[1]]))
                 if query.all():
