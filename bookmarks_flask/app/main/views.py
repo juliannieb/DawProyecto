@@ -1,15 +1,16 @@
 from flask import render_template, redirect, request, url_for, flash
-from flask.ext.login import login_required, logout_user
+from flask.ext.login import login_required, logout_user, current_user
 from . import main
 from .. import db
 from .forms import ExampleForm
 from ..models import User
 
 @main.route('/', methods=['GET', 'POST'])
-@login_required
 def index():
-	form = ExampleForm()
-	return render_template('index.html', form=form)
+	if current_user.is_authenticated():
+		return render_template('index.html')
+	else:
+		return redirect(url_for('users.login'))
 
 @main.route('/profile')
 def profile():
