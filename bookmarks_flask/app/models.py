@@ -6,7 +6,7 @@ from . import db, login_manager
 class User(UserMixin, db.Model):
 	__tablename__='users'
 	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(64), unique=True)
+	username = db.Column(db.String(64))
 	first_name = db.Column(db.String(64))
 	last_name = db.Column(db.String(64)) # Update form
 	password_hash = db.Column(db.String(128))
@@ -35,6 +35,7 @@ class Bookmark(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	link = db.Column(db.String(2200))
 	title = db.Column(db.String(64))
+	description = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
