@@ -35,11 +35,22 @@ class FlaskClientTestCase(unittest.TestCase):
 			})
 		self.assertTrue(response.status_code == 302)
 
+	def test_user_login(self):
+		response = self.client.post(url_for('users.register'), data={
+				'username': 'user1',
+				'first_name': 'User', 
+				'last_name': 'McUserson',
+				'password': 'user',
+				'confirm_password': 'user' 
+			})
+		self.assertTrue(response.status_code == 302)
+
 		response = self.client.post(url_for('users.login'), data={
-				'username': 'user',
+				'username': 'user1',
 				'password': 'user'
 			}, follow_redirects=True)
 		data = response.get_data(as_text=True)
 		self.assertTrue('Organiza' in data)
+
 
 
