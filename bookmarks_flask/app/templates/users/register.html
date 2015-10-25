@@ -16,7 +16,7 @@
             <div class="card">
               <div class="card-content black-text">
                 <span class="black-text card-title">Registration</span>
-                  <form action="" method='POST'>
+                  <form action="" method="POST" enctype="multipart/form-data">
                     <div class="input-field col s12">
                       {{ form.username(class_='validate') }}
                       {{ form.username.label }} <br>
@@ -51,6 +51,13 @@
                       {% for error in form.confirm_password.errors %}
                         <p class="red-text">{{ error }}</p> <br>
                       {% endfor %} <br>
+
+                      {{ form.profile_picture(class_='file-field input-field') }}
+
+                      {% for error in form.profile_picture.errors %}
+                        <p class="red-text">{{ error }}</p> <br>
+                      {% endfor %} <br> <br>
+
                       {{ form.submit(class_='btn btn-default') }}
                       {{ form.csrf_token }} <p><br></p>
                     </div>

@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import TextField, HiddenField, RadioField, BooleanField, \
         SubmitField, IntegerField, FormField, StringField, PasswordField
 from wtforms import validators, ValidationError
@@ -15,6 +15,7 @@ class RegistrationForm(Form):
     last_name = TextField('Last name', validators=[Required(), Length(1, 64)])
     password = PasswordField('Password', validators=[Required(), EqualTo('confirm_password', message='Passwords must match.')])
     confirm_password = PasswordField('Confirm password', validators=[Required()])
+    profile_picture = FileField('Profile picture', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
     submit = SubmitField('Register')
 
 
