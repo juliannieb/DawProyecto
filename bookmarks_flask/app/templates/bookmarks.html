@@ -14,15 +14,16 @@
 				<ul class="collapsible collapsible-accordion">
 					<li class="bold">
 						<a class="collapsible-header  waves-effect waves-teal active" style="display: inline-block; width:170px;">Bookmarks</a>
-						<a href="{{ url_for('main.add_bookmark') }}" class="right-align" style="display: inline-block; float:right;">+</a>
+						<a href="{{ url_for('main.add_bookmark') }}" class="right-align" style="display: inline-block; float:right;" title="Add a bookmark">+</a>
 						<div class="collapsible-body">
 							<ul>
-								<li class="active teal lighten-1"><a href="{{ url_for('main.bookmarks') }}">Deportes</a></li>
-								<li><a href="{{ url_for('main.bookmarks') }}">Educación</a></li>
-								<li><a href="{{ url_for('main.bookmarks') }}">Política</a></li>
-								<li><a href="{{ url_for('main.bookmarks') }}">Ciencia y tecnología</a></li>
-								<li><a href="{{ url_for('main.bookmarks') }}">Sociedad y cultura</a></li>
-								<li><a href="{{ url_for('main.bookmarks') }}">Arte</a></li>
+                                {% for category in categories %}
+                                    {% if category.id|int == category_id|int %}
+                                        <li class="active teal lighten-1"><a href="{{ url_for('main.bookmarks', category_id=category.id) }}">{{ category.name }}</a></li>
+                                    {% else %}
+									    <li><a href="{{ url_for('main.bookmarks', category_id=category.id) }}">{{ category.name }}</a></li>
+                                    {% endif %}
+								{% endfor %}
 							</ul>
 						</div>
 					</li>
@@ -40,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12">
-                    <h4>Deportes</h4>
+                    <h4>{{ category_name }}</h4>
                     <div class="divider"></div>
                 </div>
             </div>
@@ -50,14 +51,13 @@
                         <div class="card hoverable">
                             <div class="card-image">
                                 <img src="{{ url_for('static', filename = 'img/sportTest1.jpg') }}">
-                                <span class="card-title truncate">Título Bookmark 1 hola como estas que onda Título Bookmark 1 hola como estas que onda</span>
+                                <span class="card-title truncate">{{ bookmark.title }}</span>
                             </div>
                             <div class="card-content">
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
+                                <p>{{ bookmark.description }}</p>
                             </div>
                             <div class="card-action">
-                                <a href="#">Ir a link</a>
+                                <a href="{{ bookmark.link }}" target="_blank">Go</a>
                             </div>
                         </div>
                     </div>
