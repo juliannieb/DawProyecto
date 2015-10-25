@@ -9,6 +9,17 @@ def get_categories():
 	categories = Category.query.all()
 	return categories
 
+def get_bookmarks(category_id):
+	bookmarks = Bookmark.query.filter_by(user_id=current_user.id, category_id=category_id).all()
+	return bookmarks
+
+def get_bookmarks_count_dict(categories):
+	bookmarks_count = dict()
+	for category in categories:
+		bookmarks = get_bookmarks(category.id)
+		bookmarks_count[category.name] = len(bookmarks)
+	return bookmarks_count
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
 	if current_user.is_authenticated():
@@ -21,7 +32,9 @@ def index():
 @login_required
 def profile():
 	categories = get_categories()
-	return render_template('profile.html', categories=categories)
+	bookmarks_count = get_bookmarks_count_dict(categories)
+	return render_template('profile.html', categories=categories,
+							bookmarks_count=bookmarks_count)
 
 @main.route('/bookmarks/<category_id>')
 @login_required
@@ -31,7 +44,7 @@ def bookmarks(category_id):
 	if category:
 		category_name = category.name
 	categories = get_categories()
-	bookmarks = Bookmark.query.filter_by(user_id=current_user.id, category_id=category_id).all()
+	bookmarks = get_bookmarks(category_id)
 	return render_template('bookmarks.html', bookmarks=bookmarks,
 							categories=categories,
 							category_name=category_name,

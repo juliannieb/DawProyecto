@@ -17,13 +17,15 @@
                 <div class="col s12" style="text-align:center;">
                     <table class="hoverable">
                         <thead>
-                            <th>Categoría</th>
+                            <th>Category</th>
                             <th>Bookmarks</th>
                         </thead>
-                        <tr>
-                            <td>Deportes</td>
-                            <td>5</td>
-                        </tr>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.name }}</td>
+                                <td>{{ bookmarks_count[category.name] }}</td>
+                            </tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
