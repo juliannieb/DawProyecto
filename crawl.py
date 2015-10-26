@@ -43,10 +43,10 @@ def create_csv(name_source, name_dest):
         tsvin = csv.reader(tsvin, delimiter='\t')
         csvout = csv.writer(csvout, delimiter='\t')
         for row in tsvin:
-            for cat in categories:
-                if cat.lower() in row[0].lower() or cat in row[1].lower():
-                    csvout.writerow([cat, row[2], row[3]])
-                    break
+            # for cat in categories:
+            if 'digital society' in row[0].lower():
+                csvout.writerow(['Tech', row[2], row[3]])
+            
 
 def create_page(req, row, category, encoding):
     link = row[2]
@@ -94,6 +94,7 @@ def crawl(name_source):
             except Exception as e:
                 print repr(e)
                 continue
+            req = None
             try: 
                 req = urlopen(row[2], timeout=1)
             except URLError as e:
@@ -125,5 +126,5 @@ def crawl(name_source):
                         pass
 
 # crawl('new.csv')
-crawl('new.csv')
-# create_csv('classification.tsv', 'new.csv')
+crawl('otro.csv')
+# create_csv('classification.tsv', 'otro.csv')
