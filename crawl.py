@@ -77,6 +77,20 @@ def create_page(req, row, category, encoding):
     
 
 
+def gen_fix(name_source, name_dest):
+    fix = ['Film', 'Dance', 'Art', 'Literature', 'Theatre', 'Radio', 'Music', 'Languages', 'Film']
+    with open(name_source,'rb') as tsvin, open(name_dest, 'wb') as csvout:
+        tsvin = csv.reader(tsvin, delimiter='\t')
+        csvout = csv.writer(csvout, delimiter='\t')
+        for row in tsvin:
+            # for cat in categories:
+            if 'Arts' in row[0].lower() and row[1].lower not in fix:
+                csvout.writerow(['Art', row[2], row[3]])
+
+
+# def fix():
+#     session = open_session()
+
 def crawl(name_source):
     cont = 0
     session = open_session()
@@ -125,6 +139,8 @@ def crawl(name_source):
                         print repr(e)
                         pass
 
+
+gen_fix('classification.tsv', 'fix.csv')
 # crawl('new.csv')
-crawl('sprt.csv')
+# crawl('sprt.csv')
 # create_csv('classification.tsv', 'sprt.csv')
