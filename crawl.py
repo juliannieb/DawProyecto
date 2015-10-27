@@ -44,8 +44,8 @@ def create_csv(name_source, name_dest):
         csvout = csv.writer(csvout, delimiter='\t')
         for row in tsvin:
             # for cat in categories:
-            if 'digital society' in row[0].lower():
-                csvout.writerow(['Tech', row[2], row[3]])
+            if 'sport' in row[0].lower() or 'sport' in row[1].lower():
+                csvout.writerow(['Sports', row[2], row[3]])
             
 
 def create_page(req, row, category, encoding):
@@ -126,5 +126,5 @@ def crawl(name_source):
                         pass
 
 # crawl('new.csv')
-crawl('otro.csv')
-# create_csv('classification.tsv', 'otro.csv')
+crawl('sprt.csv')
+# create_csv('classification.tsv', 'sprt.csv')
