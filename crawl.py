@@ -108,6 +108,7 @@ def fix(name_source):
                 if query.all():
                     cont += 1
                     session.query(WebPage).filter(WebPage.title.in_([row[1]])).delete(synchronize_session='fetch')
+                    session.commit()
                     # print "Ya existe"
                     continue
             except Exception as e:
