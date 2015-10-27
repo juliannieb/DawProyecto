@@ -13,7 +13,7 @@
                     <h5>{{ current_user.first_name }} {{ current_user.last_name }}</h5>
                 </div>
                 <div class="col s12">
-                    <img src="{{ url_for('static', filename = 'img/settings.png') }}" alt="Settings" id="imgSettings">
+                    <a href="{{ url_for('users.edit_profile') }}"><img src="{{ url_for('static', filename = 'img/settings.png') }}" alt="Settings" id="imgSettings"></a>
                 </div>
             </div>
 

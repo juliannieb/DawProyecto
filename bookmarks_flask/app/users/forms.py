@@ -24,3 +24,15 @@ class LoginForm(Form):
 	password = PasswordField('Password', validators=[Required()])
 	remember_me = BooleanField('Remember me', description='Checkboxes can be tricky.')
 	submit = SubmitField('Login')
+
+class EditProfileInfoForm(Form):
+    username = TextField('Username', validators=[Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                                          'Usernames must have only letters, '
+                                          'numbers, dots or underscores')])
+    first_name = TextField('First name', validators=[Required(), Length(1, 64)])
+    last_name = TextField('Last name', validators=[Required(), Length(1, 64)])
+    password = PasswordField('Password', validators=[EqualTo('confirm_password', message='Passwords must match.')])
+    confirm_password = PasswordField('Confirm password', validators=[])
+    profile_picture = FileField('Profile picture', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
+    current_password = PasswordField('Current password', validators=[Required()])
+    submit = SubmitField('Register')

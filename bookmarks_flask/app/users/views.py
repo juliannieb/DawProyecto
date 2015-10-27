@@ -1,14 +1,13 @@
 import os
 from flask import render_template, redirect, request, url_for, flash, current_app, send_from_directory
-from flask.ext.login import login_user, logout_user, current_user
+from flask.ext.login import login_user, logout_user, current_user, login_required
 from werkzeug import secure_filename
 from werkzeug.security import safe_join
 from . import users
 from .. import db
 from .. import config
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, EditProfileInfoForm
 from ..models import User
-
 
 @users.route('/register', methods=['GET', 'POST'])
 def register():
@@ -24,11 +23,6 @@ def register():
 			username = form.username.data
 			extension = filename.split('.')[1]
 			directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
-			print(directory)
-			print(directory)
-			print(directory)
-			print(directory)
-			print(directory)
 			if not os.path.exists(directory):
 				print("No existe")
 				os.makedirs(directory)
@@ -48,6 +42,32 @@ def register():
 
 		return redirect(url_for('main.index'))
 	return render_template('users/register.html', form=form)
+
+@users.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+	form = EditProfileInfoForm()
+	if form.validate_on_submit():
+		if not current_user.verify_password(form.current_password.data):
+			flash('Invalid current password')
+		else:
+			current_username = current_user.username
+			current_user.username = form.username.data
+			current_user.first_name = form.first_name.data
+			current_user.last_name = form.last_name.data
+			if form.password.data:
+				current_user.password = form.password.data
+			directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), current_username)
+			if os.path.exists(directory):
+				new_directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), form.username.data)
+				os.rename(directory, new_directory)
+			db.session.add(current_user)
+			db.session.commit()
+			return redirect(url_for('main.profile'))
+	form.username.data = current_user.username
+	form.first_name.data = current_user.first_name
+	form.last_name.data = current_user.last_name
+	return render_template('users/edit_user_info.html', form=form)
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
