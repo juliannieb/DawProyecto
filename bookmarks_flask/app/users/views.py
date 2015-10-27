@@ -1,7 +1,8 @@
 import os
-from flask import render_template, redirect, request, url_for, flash, current_app
+from flask import render_template, redirect, request, url_for, flash, current_app, send_from_directory
 from flask.ext.login import login_user, logout_user, current_user
 from werkzeug import secure_filename
+from werkzeug.security import safe_join
 from . import users
 from .. import db
 from .. import config
@@ -54,3 +55,14 @@ def login():
 def logout():
 	logout_user()
 	return redirect(url_for('users.login'))
+
+@users.route('/uploads/<username>/<filename>')
+def get_file(filename, username):
+	path = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
+	if path is None:
+		print('shit')
+		abort(404)
+	return send_from_directory(path, filename)
+
+
+

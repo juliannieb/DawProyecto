@@ -6,7 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    UPLOAD_FOLDER = 'uploads/'
+    UPLOAD_FOLDER = 'app/uploads/'
     MAX_CONTENT_LENGTH = 1 * 1024 * 1024
 
     @staticmethod
