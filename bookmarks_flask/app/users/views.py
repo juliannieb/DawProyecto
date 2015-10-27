@@ -23,18 +23,28 @@ def register():
 			filename = secure_filename(file.filename)
 			username = form.username.data
 			extension = filename.split('.')[1]
-			directory = os.path.join(current_app.config['UPLOAD_FOLDER'], username + '/')
+			directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
+			print(directory)
+			print(directory)
+			print(directory)
+			print(directory)
+			print(directory)
 			if not os.path.exists(directory):
+				print("No existe")
 				os.makedirs(directory)
+			print("Salio")
 			idx_act = 0
-			path_picture = "%s%i.%s" % (directory, idx_act, extension)
+			picture_name = "%i.%s" % (idx_act, extension)
+			path_picture = "%s%s" % (directory, picture_name)
 			while os.path.exists(path_picture):
 				idx_act += 1
+				picture_name = "%i.%s" % (idx_act, extension)
+				path_picture = "%s%s" % (directory, picture_name)
 			file.save(path_picture)
-			user.profile_picture = path_picture			
-			db.session.add(user)
-			db.session.commit()
-			login_user(user)
+			user.profile_picture = picture_name			
+		db.session.add(user)
+		db.session.commit()
+		login_user(user)
 
 		return redirect(url_for('main.index'))
 	return render_template('users/register.html', form=form)
@@ -59,8 +69,8 @@ def logout():
 @users.route('/uploads/<username>/<filename>')
 def get_file(filename, username):
 	path = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
+	print(path)
 	if path is None:
-		print('shit')
 		abort(404)
 	return send_from_directory(path, filename)
 

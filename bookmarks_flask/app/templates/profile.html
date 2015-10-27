@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12" style="text-align:center;">
-                    <img src="{{ url_for('users.get_file', username = 'marco', filename= '0.png') }}" alt="Profile Picture" class="imgCircular" id="imgPerfil">
+                    <img src="{{ url_for('users.get_file', username = current_user.username, filename= current_user.profile_picture) }}" alt="Profile Picture" class="imgCircular" id="imgPerfil">
                     <h5>{{ current_user.first_name }} {{ current_user.last_name }}</h5>
                 </div>
                 <div class="col s12">
