@@ -59,9 +59,16 @@ def register():
 def edit_profile():
 	form = EditProfileInfoForm()
 	if form.validate_on_submit():
+		valid = True
 		if not current_user.verify_password(form.current_password.data):
 			flash('Invalid current password')
-		else:
+			valid = False
+		if form.username.data != current_user.username:
+			another_user = User.query.filter_by(username=form.username.data).first()
+			if another_user:
+				flash('Username already exists.')
+				valid = False
+		if valid:
 			current_username = current_user.username
 			current_user.username = form.username.data
 			current_user.first_name = form.first_name.data
