@@ -9,6 +9,31 @@ from .. import config
 from .forms import RegistrationForm, LoginForm, EditProfileInfoForm
 from ..models import User
 
+def add_profile_picture(username, file):
+	filename = secure_filename(file.filename)
+	extension = filename.split('.')[1]
+	directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
+	if not os.path.exists(directory):
+		print("No existe")
+		os.makedirs(directory)
+	print("Salio")
+	idx_act = 0
+	picture_name = "%i.%s" % (idx_act, extension)
+	path_picture = safe_join(os.path.join(directory), picture_name)
+	while os.path.exists(path_picture):
+		idx_act += 1
+		picture_name = "%i.%s" % (idx_act, extension)
+		path_picture = safe_join(os.path.join(directory), picture_name)
+	file.save(path_picture)
+	return picture_name
+
+def change_user_username_folder(current_username, new_username):
+	directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), current_username)
+	if os.path.exists(directory):
+		new_directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), new_username)
+		os.rename(directory, new_directory)
+
+
 @users.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegistrationForm()
@@ -19,22 +44,8 @@ def register():
 					last_name=form.last_name.data)
 		if form.profile_picture.data:
 			file = request.files[form.profile_picture.name]
-			filename = secure_filename(file.filename)
 			username = form.username.data
-			extension = filename.split('.')[1]
-			directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
-			if not os.path.exists(directory):
-				print("No existe")
-				os.makedirs(directory)
-			print("Salio")
-			idx_act = 0
-			picture_name = "%i.%s" % (idx_act, extension)
-			path_picture = safe_join(os.path.join(directory), picture_name)
-			while os.path.exists(path_picture):
-				idx_act += 1
-				picture_name = "%i.%s" % (idx_act, extension)
-				path_picture = safe_join(os.path.join(directory), picture_name)
-			file.save(path_picture)
+			picture_name = add_profile_picture(username, file)
 			user.profile_picture = picture_name			
 		db.session.add(user)
 		db.session.commit()
@@ -57,10 +68,12 @@ def edit_profile():
 			current_user.last_name = form.last_name.data
 			if form.password.data:
 				current_user.password = form.password.data
-			directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), current_username)
-			if os.path.exists(directory):
-				new_directory = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), form.username.data)
-				os.rename(directory, new_directory)
+			change_user_username_folder(current_username, form.username.data)
+			if form.profile_picture.data:
+				file = request.files[form.profile_picture.name]
+				username = form.username.data
+				picture_name = add_profile_picture(username, file)
+				current_user.profile_picture = picture_name	
 			db.session.add(current_user)
 			db.session.commit()
 			return redirect(url_for('main.profile'))
