@@ -5,7 +5,11 @@
         <div class="container">
             <div class="row">
                 <div class="col s12" style="text-align:center;">
-                    <img src="{{ url_for('users.get_file', username = current_user.username, filename= current_user.profile_picture) }}" alt="Profile Picture" class="imgCircular" id="imgPerfil">
+                    {% if current_user.profile_picture %}
+                        <img src="{{ url_for('users.get_file', username = current_user.username, filename= current_user.profile_picture) }}" alt="Profile Picture" class="imgCircular" id="imgPerfil">
+                    {% else %}
+                        <img src="{{ url_for('static', filename = 'img/default_profile.png') }}" alt="Profile Picture" class="imgCircular" id="imgPerfil">
+                    {% endif %}
                     <h5>{{ current_user.first_name }} {{ current_user.last_name }}</h5>
                 </div>
                 <div class="col s12">
