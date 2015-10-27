@@ -17,14 +17,23 @@ def register():
 					password=form.password.data,
 					first_name=form.first_name.data,
 					last_name=form.last_name.data)
-		db.session.add(user)
-		db.session.commit()
-		login_user(user)
-
-		if form.profile_picture.data: # If form has data
-			file = request.files[form.profile_picture.name] # Request file from POST
-			filename = secure_filename(file.filename) # Remove unwanted characters
-			file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename)) # Save
+		if form.profile_picture.data:
+			file = request.files[form.profile_picture.name]
+			filename = secure_filename(file.filename)
+			username = form.username.data
+			extension = filename.split('.')[1]
+			directory = os.path.join(current_app.config['UPLOAD_FOLDER'], username + '/')
+			if not os.path.exists(directory):
+				os.makedirs(directory)
+			idx_act = 0
+			path_picture = "%s%i.%s" % (directory, idx_act, extension)
+			while os.path.exists(path_picture):
+				idx_act += 1
+			file.save(path_picture)
+			user.profile_picture = path_picture			
+			db.session.add(user)
+			db.session.commit()
+			login_user(user)
 
 		return redirect(url_for('main.index'))
 	return render_template('users/register.html', form=form)

@@ -7,6 +7,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     UPLOAD_FOLDER = 'uploads/'
+    MAX_CONTENT_LENGTH = 1 * 1024 * 1024
 
     @staticmethod
     def init_app(app):

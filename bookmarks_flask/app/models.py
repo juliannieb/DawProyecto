@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
 	first_name = db.Column(db.String(64))
 	last_name = db.Column(db.String(64))
 	password_hash = db.Column(db.String(128))
+	profile_picture = db.Column(db.String(255))
 	bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
 
 	def __repr__(self):
