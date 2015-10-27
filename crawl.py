@@ -78,18 +78,43 @@ def create_page(req, row, category, encoding):
 
 
 def gen_fix(name_source, name_dest):
-    fix = ['Film', 'Dance', 'Art', 'Literature', 'Theatre', 'Radio', 'Music', 'Languages', 'Film']
+    fix = ['Film / Cinema', 'Dance', 'Art and Design', 'Literature', 'Live Art', 'TV and Radio', 'Music', 'Languages']
+    ans = []
     with open(name_source,'rb') as tsvin, open(name_dest, 'wb') as csvout:
         tsvin = csv.reader(tsvin, delimiter='\t')
         csvout = csv.writer(csvout, delimiter='\t')
         for row in tsvin:
             # for cat in categories:
-            if 'Arts' in row[0].lower() and row[1].lower not in fix:
+
+            # a = raw_input("")
+            # print row[1].lower()
+
+            if 'arts' in row[0].lower() and row[1] not in fix:
+                if row[1] not in ans:
+                    print row[1]
+                    a = raw_input("")
+                    ans.append(row[1])
                 csvout.writerow(['Art', row[2], row[3]])
 
 
-# def fix():
-#     session = open_session()
+def fix(name_source):
+    session = open_session()
+    cont = 0
+    with open(name_source) as csvin:
+        csvin = csv.reader(csvin, delimiter='\t')
+        for row in csvin:
+            try:
+                query = session.query(WebPage).filter(WebPage.title.in_([row[1]]))
+                if query.all():
+                    cont += 1
+                    session.query(WebPage).filter(WebPage.title.in_([row[1]])).delete(synchronize_session='fetch')
+                    # print "Ya existe"
+                    continue
+            except Exception as e:
+                print repr(e)
+                continue
+    print cont
+    
 
 def crawl(name_source):
     cont = 0
@@ -140,7 +165,8 @@ def crawl(name_source):
                         pass
 
 
-gen_fix('classification.tsv', 'fix.csv')
+# gen_fix('classification.tsv', 'fix.csv')
+fix('fix.csv')
 # crawl('new.csv')
 # crawl('sprt.csv')
 # create_csv('classification.tsv', 'sprt.csv')
