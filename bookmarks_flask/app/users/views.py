@@ -35,11 +35,11 @@ def register():
 			print("Salio")
 			idx_act = 0
 			picture_name = "%i.%s" % (idx_act, extension)
-			path_picture = "%s%s" % (directory, picture_name)
+			path_picture = safe_join(os.path.join(directory), picture_name)
 			while os.path.exists(path_picture):
 				idx_act += 1
 				picture_name = "%i.%s" % (idx_act, extension)
-				path_picture = "%s%s" % (directory, picture_name)
+				path_picture = safe_join(os.path.join(directory), picture_name)
 			file.save(path_picture)
 			user.profile_picture = picture_name			
 		db.session.add(user)
@@ -68,11 +68,10 @@ def logout():
 
 @users.route('/uploads/<username>/<filename>')
 def get_file(filename, username):
-	path = safe_join(os.path.join(current_app.config['UPLOAD_FOLDER']), username)
-	print(path)
-	if path is None:
-		abort(404)
-	return send_from_directory(path, filename)
+	filename = safe_join(os.path.join(username), filename)
+	upload_folder = safe_join(os.path.join(os.getcwd()), current_app.config['UPLOAD_FOLDER'])
+	print(filename)
+	return send_from_directory(upload_folder, filename)
 
 
 
