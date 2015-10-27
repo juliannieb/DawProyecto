@@ -60,3 +60,5 @@ target/
 .DS_STORE
 data-dev.sqlite
 bookmarks_flask/*.sqlite
+
+uploads/
