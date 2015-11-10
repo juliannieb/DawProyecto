@@ -8,6 +8,12 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     UPLOAD_FOLDER = './uploads/'
     MAX_CONTENT_LENGTH = 1 * 1024 * 1024
+    OAUTH_CREDENTIALS = {
+        'facebook': {
+            'id': '161262437559330',
+            'secret': 'cf03fcb1b2812116014fe80d716d006e'
+        }
+    }
 
     @staticmethod
     def init_app(app):
