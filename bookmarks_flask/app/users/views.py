@@ -3,11 +3,12 @@ from flask import render_template, redirect, request, url_for, flash, current_ap
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from werkzeug import secure_filename
 from werkzeug.security import safe_join
+from rauth import OAuth2Service
 from . import users
 from .. import db
 from .. import config
 from .forms import RegistrationForm, LoginForm, EditProfileInfoForm
-from ..models import User
+from ..models import User, OAuthSignIn
 
 def add_profile_picture(username, file):
 	filename = secure_filename(file.filename)
@@ -112,6 +113,37 @@ def get_file(filename, username):
 	upload_folder = safe_join(os.path.join(os.getcwd()), current_app.config['UPLOAD_FOLDER'])
 	print(filename)
 	return send_from_directory(upload_folder, filename)
+
+""" Facebook SignIn """
+
+@users.route('/login/<provider>')
+def oauth_authorize(provider):
+	if not current_user.is_anonymous():
+		return redirect(url_for('main.index'))
+	oauth = OAuthSignIn.get_provider(provider)
+	return oauth.authorize()
+
+@users.route('/callback/<provider>')
+def oauth_callback(provider):
+	if not current_user.is_anonymous():
+		return redirect(url_for('main.index'))
+	oauth = OAuthSignIn.get_provider(provider)
+	social_id, username = oauth.callback()
+	print
+	if social_id is None:
+		flash('Authentication failed.')
+		return redirect(url_for('main.index'))
+	user = User.query.filter_by(social_id=social_id).first()
+	if not user:
+		user = User(social_id=social_id, username=username)
+		db.session.add(user)
+		db.session.commit()
+	login_user(user, True)
+	return redirect(url_for('main.index'))
+
+
+
+
 
 
 
