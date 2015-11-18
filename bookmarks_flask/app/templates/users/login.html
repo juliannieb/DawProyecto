@@ -49,6 +49,8 @@
                       {{ form.submit(class_='btn btn-default') }}
                       {{ form.csrf_token }}
                       <p><br></p>
+                        <a href="{{ url_for('users.oauth_authorize', provider='facebook') }}" class="btn btn-default blue darken-4">Login with Facebook</a>
+                        <p><br></p>
                       <a href="{{ url_for('users.register') }}" id="btnCreateAccount">Create an account</a>
                       <p><br></p>
                     </div>
