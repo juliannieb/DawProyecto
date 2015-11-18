@@ -3,6 +3,7 @@ from flask.ext.login import UserMixin
 from rauth import OAuth2Service
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, login_manager
+import json
 
 
 class User(UserMixin, db.Model):
@@ -83,7 +84,7 @@ class OAuthSignIn(object):
 			for provider_class in self.__subclasses__():
 				provider = provider_class()
 				self.providers[provider.provider_name] = provider
-			return self.providers[provider_name]
+		return self.providers[provider_name]
 
 class FacebookSignIn(OAuthSignIn):
 	def __init__(self):
@@ -113,7 +114,10 @@ class FacebookSignIn(OAuthSignIn):
 			'redirect_uri': self.get_callback_url()}
 		)
 		me = oauth_session.get('me').json()
+		print(me)
+		print("HOLA\n"*10)
 		return(
 			'facebook$' + me['id'],
-			me.get('email').split('@')[0]
+			#me.get('email').split('@')[0]
+			me['name']
 		)

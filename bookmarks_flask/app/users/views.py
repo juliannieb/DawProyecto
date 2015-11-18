@@ -121,7 +121,6 @@ def oauth_authorize(provider):
 	if not current_user.is_anonymous():
 		return redirect(url_for('main.index'))
 	oauth = OAuthSignIn.get_provider(provider)
-	#oauth = OAuthSignIn(provider)
 	return oauth.authorize()
 
 @users.route('/callback/<provider>')
@@ -129,21 +128,18 @@ def oauth_callback(provider):
 	if not current_user.is_anonymous():
 		return redirect(url_for('main.index'))
 	oauth = OAuthSignIn.get_provider(provider)
-	#oauth = OAuthSignIn(provider)
 	social_id, username = oauth.callback()
+	print
 	if social_id is None:
 		flash('Authentication failed.')
 		return redirect(url_for('main.index'))
-	user = User.query.filter_by(social_id, username=username)
+	user = User.query.filter_by(social_id=social_id).first()
 	if not user:
+		user = User(social_id=social_id, username=username)
 		db.session.add(user)
 		db.session.commit()
 	login_user(user, True)
 	return redirect(url_for('main.index'))
-
-
-
-
 
 
 
