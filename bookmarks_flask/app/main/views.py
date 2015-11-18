@@ -33,8 +33,12 @@ def index():
 def profile():
 	categories = get_categories()
 	bookmarks_count = get_bookmarks_count_dict(categories)
+	social_id = ""
+	if current_user.social_id:
+		social_id = current_user.social_id.split('$')[1]
 	return render_template('profile.html', categories=categories,
-							bookmarks_count=bookmarks_count)
+							bookmarks_count=bookmarks_count,
+							social_id=social_id)
 
 @main.route('/bookmarks/<category_id>')
 @login_required
