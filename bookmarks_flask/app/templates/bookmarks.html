@@ -2,6 +2,7 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bookmarks.css') }}">
+    <script src="{{ url_for('static', filename='js/dragndrop.js') }}"></script>
 {% endblock %}
 {% block navbar %}
 	<header>
@@ -19,9 +20,9 @@
 							<ul>
                                 {% for category in categories %}
                                     {% if category.id|int == category_id|int %}
-                                        <li class="active teal lighten-1"><a href="{{ url_for('main.bookmarks', category_id=category.id) }}">{{ category.name }}</a></li>
+                                        <li class="active teal lighten-1" ondrop="drop(event)" ondragover="allowDrop(event)"><a href="{{ url_for('main.bookmarks', category_id=category.id) }}">{{ category.name }}</a></li>
                                     {% else %}
-									    <li><a href="{{ url_for('main.bookmarks', category_id=category.id) }}">{{ category.name }}</a></li>
+									    <li ondrop="drop(event)" ondragover="allowDrop(event)"><a href="{{ url_for('main.bookmarks', category_id=category.id) }}">{{ category.name }}</a></li>
                                     {% endif %}
 								{% endfor %}
 							</ul>
@@ -47,7 +48,7 @@
             </div>
             <div class="row">
                 {% for bookmark in bookmarks %}
-                    <div class="col s12 m4">
+                    <div class="col s12 m4" draggable="true" ondragstart="drag(event)">
                         <div class="card hoverable">
                             <div class="card-image">
                                 <img src="{{ url_for('static', filename = 'img/sportTest1.jpg') }}">
